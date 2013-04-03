@@ -183,9 +183,14 @@ function s:subst(start, end, pat, rep)
 endfunction
 " }}}1
 
-call s:setup_autocommand()
+
+if get(g:, 'g:timestamp_disable_auto_startup', 1) != 1
+    call s:setup_autocommand()
+endif
+
 command! DisableTimestamp   au! TimeStamp
 command! EnableTimestamp    call s:setup_autocommand()
+command! UpdateTimestamp    call s:timestamp()
 
 " Restore compatibility options
 let &cpo = s:cpo_save
